@@ -1,0 +1,4 @@
+This script must be check if there're some update (system, Yunohost and Yunohost app). 
+
+# MAIN
+If true then send mail
