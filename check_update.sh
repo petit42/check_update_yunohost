@@ -15,9 +15,15 @@ dry_output="/tmp/checkupdate.list"
 ########
 # MAIN #
 ########
-yunohost tools update 2>&1 > $dry_output
+#yunohost tools update 2>&1 > $dry_output
 #sed -n '/packages:/{:a;N;/apps:/!ba;p;}' $dry_output| sed "s/    name: //" | grep -vE "(^$|^ |packages:|apps:)"|cut -d " " -f1|sort -u 
+echo "--------------------------------------------------"
+#sed -n '/apps\:/{n;p;}' $dry_output
+sed -n '/apps:/,$p' $dry_output
 
-cat $dry_output
+
+#cat $dry_output
+
+
 
 # todo sup $dry_output
