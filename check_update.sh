@@ -11,24 +11,24 @@ set -o nounset
 # Vars
 system_update="0"
 dry_output="/tmp/checkupdate.list"
+mail_content="/tmp/checkupdate.mail"
+mail_notification="admin@`cat /etc/yunohost/current_host`"
+mail_notification="petit@peccadilles.net"
 
 ########
 # MAIN #
 ########
 #sudo yunohost tools update 2>&1 > $dry_output
 #update_system=`sed -n '/packages:/{:a;N;/apps:/!ba;p;}' $dry_output| sed "s/    name: //" | grep -vE "(^$|^ |packages:|apps:)"|cut -d " " -f1|sort -u` 
-update_app=`sed -n '/apps:/,$p' $dry_output |grep id|sed "s/ *id: \(.*\)/\1/"`
+#update_app=`sed -n '/apps:/,$p' $dry_output |grep id|sed "s/ *id: \(.*\)/\1/"`
 
-#echo $update_system
-#echo "--------------------------------------------------"
-#echo "--------------------------------------------------"
-#echo "--------------------------------------------------"
-#echo "--------------------------------------------------"
-#echo "--------------------------------------------------"
-#echo "--------------------------------------------------"
-echo $update_app
-#cat $dry_output
+echo "From: labriqueinter.net" >$mail_content
+echo "To: $mail_notification" >>$mail_content
+echo "Subject: Updating labriqueinter.net" >>$mail_content
+echo "Mime-Version: 1.0" >>$mail_content
+echo "Content-Type: text/html; charset=\"iso-8859-15\"" >>$mail_content
+echo "\"Bonjour\" content" >>$mail_content
 
+cat $mail_content | sendmail -t 
 
-
-# todo sup $dry_output
+# todo sup $dry_output $mail_content
