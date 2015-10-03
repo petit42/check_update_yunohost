@@ -10,10 +10,13 @@ set -o nounset
 
 # Vars
 system_update="0"
+dry_output="/tmp/checkupdate.list"
 
 ########
 # MAIN #
 ########
-system_update=`apt-get --just-print upgrade 2>&1 | perl -ne 'if (/Inst\s([\w,\-,\d,\.,~,:,\+]+)\s\[([\w,\-,\d,\.,~,:,\+]+)\]\s\(([\w,\-,\d,\.,~,:,\+]+)\)? /i) {print "PROGRAM: $1 INSTALLED: $2 AVAILABLE: $3\n"}'`
+#sed -n '/packages:/{:a;N;/apps:/!ba;p;}' $dry_output| sed "s/    name: //" | grep -vE "(^$|^ |packages:|apps:)"|cut -d " " -f1|sort -u 
 
-echo $system_update
+cat $dry_output
+
+# todo sup $dry_output
